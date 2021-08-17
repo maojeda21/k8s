@@ -1,0 +1,96 @@
+-- KUBERNETES --
+
+kubectl: herramienta basica para Kubernete, nos permite trabajar con cluster en linux.
+
+start: arranca un cluster de Kubernetes de manera local.
+    minikube start
+
+Virtual Box: por defecto minikube usa docker como generador de maquina virtual, si queremos usar virtual box ejecutamos el siguiente comando.
+    minikube start --driver=virtualbox
+
+status: para ver el estado de nuestro cluster.
+    minikube status
+
+dashboard: para abrir un dashboard
+    minikube dashboard
+
+run: se usa para hacer un deployment o un despliegue, funciona igual que el run de docker, pero cambia las demas sintaxis.
+    kubectl run (nombre del contenedor) --image=(nombre de la imagen)
+    kubectl run n1 --image=nginx
+
+get: permite visualizar los elementos, servicios y demas componentes del cluster.
+    kubectl get (algun servicio o elemento)
+
+deployments: muestra los deployment del cluster.
+    kubectl get deployment
+
+pods: muestra los pods creados o disponibles.
+    kubectl get pods
+
+service: muestra todos los servicios del cluster.
+    kubectl get services
+
+nodes: muestra informacion de los nodos que tenemos.
+    kubectl get nodes
+    kubectl get nodes -o wide (mayor y mejor informacion)
+
+-o wide: brinda mayor informacion de los pods.
+    kubectl get pods -o wide
+
+cluster-info: muestra informacion del cluster.
+    kubectl cluster-info
+    
+proxy: nos permite acceder desde el exterior al interior de la red que usan los pods o contenedores.
+    kubectl proxy
+    - Luego entrando al navegador mediante la dirccion del localhost con el puerto 8001 veremos las apis necesarias para acceder a los componentes del cluster.
+    - Por ej, para entrar al contenedor de nginx mediante el navegador: http://localhost:8001/api/v1/namespaces/default/pods/n1/proxy/
+
+describe: secribe un determinado servicio o pods, similar al inspect de docker.
+    kubectl describe pods
+
+logs: muestra lo que esta haciendo o ejecutando dentro del pod
+    kubectl logs (nombre del pod o contenedor)
+
+exec: ejecuta comando dentro del contenedor, como docker.
+    kubectl exec (nombre del pod) (comando a ejectuar)
+    kubectl exec n1 bash/ls
+
+expose: es la manera mas sencilla de crear un servicio.
+    kubectl expose (nombre del servicio) --type="NodePort" --port 80
+    kubectl expose deployments/nginx1 --type="NodePort" --port 80
+
+ip: permite ver la configuracion y la IP que se asigno al servidor del cluster.
+    minikube ip
+
+logs: permite ver los logs del cluster.
+    minikube logs
+
+ssh: podemos loguearnos dentro de la maquina virtual que hemos creado con minikube.
+    minikube ssh
+
+update-check: permite comprobar si hay una version mas nueva de minikube.
+    minikube update-check
+
+El archivo de configuracion de kubectl se encuentra dentro de la carpeta oculta .kube, el archivo config.
+
+El archivo de configuracion de minikube se encuentra dentro de la carpeta ocula .minikube, el archivo config.
+
+El o los cluster creados por minikube lo podemos ver dentro del directorio oculto .minikube/machines
+
+--container-runtime=cri-o: arrancar una maquina virtual con otro tipo de conteiner runtime.
+    minikube start --container-runtime=crio-o
+
+-p: crear otro cluster con otro perfil(-p de perfil)
+    minikube start -p (nombre del perfil)
+    minikube start -p desarrollo
+
+profile: permite ver en que cluster estamos.
+    minikube profile
+
+profile list: nos da una lista de los cluster que tenemos.
+    minikube profile list
+
+- Con profile nos podemos mover entre los distintos cluster que tengamos.
+    minikube profile (nombre del cluster)
+
+
