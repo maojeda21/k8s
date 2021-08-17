@@ -59,8 +59,8 @@ exec: ejecuta comando dentro del contenedor, como docker.
     kubectl exec (nombre del pod) (comando a ejectuar)
     kubectl exec n1 bash/ls
 
-expose: es la manera mas sencilla de crear un servicio.
-    kubectl expose (nombre del servicio) --type="NodePort" --port 80
+expose: es la manera mas sencilla de crear un servicio (crea un servicio para exponer un deployment).
+    kubectl expose (nombre del servicio) --type="NodePort" --port 80 (hay varios tipos de "type")
     kubectl expose deployments/nginx1 --type="NodePort" --port 80
 
 ip: permite ver la configuracion y la IP que se asigno al servidor del cluster.
