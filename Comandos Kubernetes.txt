@@ -18,6 +18,10 @@ run: se usa para hacer un deployment o un despliegue, funciona igual que el run 
     kubectl run (nombre del contenedor) --image=(nombre de la imagen)
     kubectl run n1 --image=nginx
 
+create: crea un deployment, un deployment es un conjunto de instrucciones para que un contenedor pueda funcionar en un pod
+    kubectl create deployment (nombre-deployment) --image=(nombre-de-la-imagen)
+    kubectl create deployment hello-world --image=nginx
+
 get: permite visualizar los elementos, servicios y demas componentes del cluster.
     kubectl get (algun servicio o elemento)
 
