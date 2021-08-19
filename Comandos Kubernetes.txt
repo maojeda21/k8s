@@ -97,6 +97,13 @@ profile list: nos da una lista de los cluster que tenemos.
 - Con profile nos podemos mover entre los distintos cluster que tengamos.
     minikube profile (nombre del cluster)
 
--- PODS --
+    -- PODS --
 
+Es el objeto minimo que podemos encontrar en Kubernetes.
+Normalmente un POD contiene un contenedor, un pod tiene un  conjunto de recursos propios, como ser, RAM, procesador, direcciones de red, puertos, hostname, 
+volumenes, incluso una direccion de red unica, estos pods se crean en un cluster, el pod se comunica con los demas pods por una net virtual privada dentro de Kubernetes.
+no se deben guardar nada dentro de los pods.
 
+1. IMPERATIVO: despliega una aplicación en un POD, un POD es como una burbuja donde dentro de el se ejecutan uno o varios contenedores.
+
+2. DELARATIVO: se hace atra vez de archivos MANIFEST(YAML)
