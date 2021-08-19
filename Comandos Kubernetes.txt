@@ -97,4 +97,6 @@ profile list: nos da una lista de los cluster que tenemos.
 - Con profile nos podemos mover entre los distintos cluster que tengamos.
     minikube profile (nombre del cluster)
 
+-- PODS --
+
 
