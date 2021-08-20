@@ -129,6 +129,58 @@ logs: para ver los logs de un pod.
     kubectl logs -f apache
     - con el parametro --tail= le podemos indicar el numero de lineas que queremos ver de los logs.
     kubectl logs apache --tail=30
-    
-     
+
+     -- FICHERO YAML --
+
+# Las cadenas no requieren comillas:
+Titulo: Introcuccion a TAML
+# Pero se pueden usar:
+title-w-quotes: 'Intruccion a TAML' -> properties:'valor'
+
+# Las cadenas multilineas comienzan con |
+ejecutar: |
+    npm cr
+    npm build
+    prueba npm
+
+# Secuencias
+# Las secuencias nos permiten definir listas en YAML:
+# Una lista de números usando guiones:
+números:
+    - uno
+    - dos 
+    - Tres
+
+# La version en linea:
+numeros: [uno, dos, tres]
+
+# Valores anidados
+# Podemos usar todos los tipos anteriores para crear un objeto con valores anidados, asi:
+# Mil novecientos ochenta y cuatro datos nuevos.
+1984:
+    autor:  Cosme Fulanito
+    publicado en: 1949-06-08
+    recuento de paginas: 328
+    descripcion: |
+        Una novela, a menudo publicada como 1984, es una novela distopica del novelista ingles Cosme Fulanito.
+        Fue publicado en Junio de 1949 por Secker & Warburg como noveno y ultimo b de Orwell.
+
+# Lista de objetos
+# Combinando secuencias y valores anidados podemos crear una lista de objetos.
+# Hagamos una lista de libros:
+- 1984:
+    autor: Coste Fulanito
+    publicado en: 1949-06-08
+    recuento de paginas: 328
+    descripcion: |
+        Una novela, a menudo publicada como 1984, es una novela distopica del novelista ingles Cosme Fulanito.
+
+- el Hobbit:
+    autor: J. R. R. Tolkien
+    publicado en: 1937-09-21
+    recuento de paginas: 310
+    descripcion: |
+        The Hobbit, o There and back Again es una novela de fantasía para niños del autor ingles J. R. R. Tolkien
+
+
 
