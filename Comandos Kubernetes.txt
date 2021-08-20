@@ -107,3 +107,12 @@ no se deben guardar nada dentro de los pods.
 1. IMPERATIVO: despliega una aplicación en un POD, un POD es como una burbuja donde dentro de el se ejecutan uno o varios contenedores.
 
 2. DELARATIVO: se hace atra vez de archivos MANIFEST(YAML)
+
+run: crear un pod de manera automatica que se cree y se ejecute en ese momento y con el que podamos interactuar.
+    kubectl run nginx1 --image=nginx
+
+describe (componente/type): se ejecuta el comando describe seuido de algun pods/services/deployments.
+    kubectl describe pod/n1
+
+exec: permite ejecutar un comando contra un contenedor, igual que el exce de docker.
+    kubectl exec
