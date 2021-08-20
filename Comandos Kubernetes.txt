@@ -115,4 +115,20 @@ describe (componente/type): se ejecuta el comando describe seuido de algun pods/
     kubectl describe pod/n1
 
 exec: permite ejecutar un comando contra un contenedor, igual que el exce de docker.
-    kubectl exec
+    kubectl exec nombre-pod comando-a-introducir
+    kubectl exec n1 ls
+    kubectl exec n1 -it bash
+
+--port= : para exponer el puerto de un contenedor/pod.
+    kubectl run apache --image=httpd --port=8080
+
+logs: para ver los logs de un pod.
+    kubectl logs (nombre-pod)
+    kubectl logs apache
+    - con el parametro -f se queda esperando el log.
+    kubectl logs -f apache
+    - con el parametro --tail= le podemos indicar el numero de lineas que queremos ver de los logs.
+    kubectl logs apache --tail=30
+    
+     
+
