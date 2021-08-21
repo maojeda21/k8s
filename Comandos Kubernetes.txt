@@ -191,9 +191,17 @@ create: nos permite crear un recurso o un componente de Kubernetes a partir de u
     kubectl create -f nginx.yaml
 
 delete: nos permite borrar un pod del cluster.
-    kubectl delete pod/(nombre-del-pod)
+    kubectl delete pod/(nombre-del-pod) -> tambien se puede usarl sin la barra "/"
+    kubectl delete pod (nombre-del-pod)
     kubectl delete pod/n1
     kubectl delete -n default pod nginx-deployment-66b6c48dd5-wfzbm (comando sacado del dashboard) 
+    --grace-period= : se le puede dar un tiempo de "gracias" antes de borrar.
+    kubectl delete pod apache --grace-period=(tiempo-en-segundos)
+    kubectl delete pod apache --grace-period=10
+    -now: borra el pod de manera inmediata y que no espere nada.
+    kubectl delete pod apache --now
+    --all: borra todos los pod (no pregunta si queremos hacerlo)
+    kubectl delete pods --all
 
 get pod (YAML o JSON): permite obtener informacion de un determinado pod ya sea en formato yaml o json.
     kubectl get pod/(nombre-del-pod) -o (YAML/JSON)
