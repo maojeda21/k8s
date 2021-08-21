@@ -131,7 +131,8 @@ logs: para ver los logs de un pod.
     - con el parametro --tail= le podemos indicar el numero de lineas que queremos ver de los logs.
     kubectl logs apache --tail=30
 
-     -- FICHERO YAML --
+     
+ -- FICHERO YAML --
 
 # Las cadenas no requieren comillas:
 Titulo: Introcuccion a TAML
@@ -183,6 +184,8 @@ numeros: [uno, dos, tres]
     descripcion: |
         The Hobbit, o There and back Again es una novela de fantasía para niños del autor ingles J. R. R. Tolkien
 
+-----------------------------------------
+
 create: nos permite crear un recurso o un componente de Kubernetes a partir de un fichero YAML, se le pasa el parametro -f.
     kubectl create -f (nombre-fichero-.yaml)
     kubectl create -f nginx.yaml
@@ -191,3 +194,7 @@ delete: nos permite borrar un pod del cluster.
     kubectl delete pod/(nombre-del-pod)
     kubectl delete pod/n1
     kubectl delete -n default pod nginx-deployment-66b6c48dd5-wfzbm (comando sacado del dashboard) 
+
+get pod (YAML o JSON): permite obtener informacion de un determinado pod ya sea en formato yaml o json.
+    kubectl get pod/(nombre-del-pod) -o (YAML/JSON)
+    kubectl get pod/n1 -o yaml
