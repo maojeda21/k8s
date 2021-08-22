@@ -130,7 +130,9 @@ logs: para ver los logs de un pod.
     kubectl logs -f apache
     - con el parametro --tail= le podemos indicar el numero de lineas que queremos ver de los logs.
     kubectl logs apache --tail=30
-
+    - en el caso de tener mas de un contenedor corriendo en un mismo pod tengo que decirle a kubectl cual de los dos quiero con me muestro, con el parametro -c
+    kubectl logs pod/nombre-del-pod -c (nombre-del-contenedor)
+    kubectl logs pod/redis-django -c almacen --> tenemos dos contenedores, uno llamdo "almacen", y el otro "frontal"
      
  -- FICHERO YAML --
 
@@ -206,3 +208,14 @@ delete: nos permite borrar un pod del cluster.
 get pod (YAML o JSON): permite obtener informacion de un determinado pod ya sea en formato yaml o json.
     kubectl get pod/(nombre-del-pod) -o (YAML/JSON)
     kubectl get pod/n1 -o yaml
+
+apply: uno de los comandos con lo que podemos trabajar de manera declarativa. usamos este comando en vez del create, comprueba que es lo que ya tenemos, si el objeto
+    no existe lo creao, si ya existe ve que diferencias hay y las aplica, por ej, esto sirve si queremos agreagar alguna etiqueta o algo mas al objeto ya creado.
+    kubectl apply -f nginx.yaml
+
+Existe varias forma de tratar un pod cuando se cae o algo anda mal, tenemos tras posibilidades, Always, OnFailure, Never.
+    Always: le indicamos que se reinicie siempre (opcion predefinida).
+    OnFailure: se reinicie solo si ha fallado.
+    Never: que nunca se reinicie.
+    se indica con la clausula: "restarPolicy: Always/OnFailure/Never" --> a nivel del contenedor(containers) dentro de las especificaciones(spec)
+
