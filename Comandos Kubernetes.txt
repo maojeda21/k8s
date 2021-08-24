@@ -253,3 +253,18 @@ Con como los "where" que se utilizan con una determianda condicion para encontra
     -Tambien se le pueden poner mas de un estado en fomra de listas, por ejemplo estado in(desarrollo,testind)'
     -Podemos usar los selectores para borrar un conjunto de PODS, por ejemplo.
     kubectl delete pods -l 'estado=desarrollo
+
+-- ANOTACIONES --
+
+Son similares a los labels, pero son mas bien descriptivas (al mismo nivel que label y name dentro de metadata).
+    metadata:
+        name: tomcat1
+        labels:
+            estado: "desarrollo"
+            responsable: "Juan"
+        annotations:
+            doc: "se debe compliar con gcc"
+            adjunto: "ejmplo de anotacion"
+podemos ver o buscar luego con un describe, tambien podemos usar un jsonpath, por ej.
+    kubectl get pod tomcat1 -o jsonpath={.metadata.annotations}
+
