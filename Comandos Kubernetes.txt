@@ -219,3 +219,10 @@ Existe varias forma de tratar un pod cuando se cae o algo anda mal, tenemos tras
     Never: que nunca se reinicie.
     se indica con la clausula: "restarPolicy: Always/OnFailure/Never" --> a nivel del contenedor(containers) dentro de las especificaciones(spec)
 
+--show-labels: muestra informacion de los pods junto con sus respectivas etiquetas.
+    kubectl get pod tomcat --show-labels
+    kubectl get pods -o wide --show-labels
+    -con el parametro -L le indicamos que nos creé una nueva columna cone sa etiqueta.
+    kubectl get pod tomcat --show-labels -L (nombre-columna) --> podemos concatenar varios nombres de columnas.
+    kubectl get pod tomcat --show-labels -L estado
+
