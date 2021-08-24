@@ -226,3 +226,30 @@ Existe varias forma de tratar un pod cuando se cae o algo anda mal, tenemos tras
     kubectl get pod tomcat --show-labels -L (nombre-columna) --> podemos concatenar varios nombres de columnas.
     kubectl get pod tomcat --show-labels -L estado
 
+label: podemos manejar o actualizar nuestros objetos para poder añadir o modificar las etiquetas.
+    kubectl label pod nombre-pod etiqueta-objeto=nombre-objeto
+    kubectl laber pod tomcat responsable=Juan
+
+--overwrite: nos permite sobreescribir el laber/etiqueta de une stado.
+    kubectl label --overwrite pod nombre-pod etiqueta-objeto=nombre-objeto
+    kubectl label --overwrite od tomcat estado=test (antes era estado=desarrollo)
+
+Para borrar una etiqueta no existe un comando DELETE como tal, entonces lo podemos hacer de la siguiente manera.
+    kubectl label pod/tomcat responsable- (agregamos un "-" en el laber que queremos borrar)
+
+-- SELECTORES --
+
+Son el objeto primario con el que se relacionan algunos de los componentes, como los deployment, servicios, etc.
+Con como los "where" que se utilizan con una determianda condicion para encontrar determinados objetos con una determinada etiqueta.
+
+-l/--selector: nos permite aplicar un selector en nuestro cluster, en este caso vamos a buscar los labels con un determinado estado.
+    kubectl get pods --show-labels -l estado=desarrollo
+    -Podemos poner condiciones, por ej   
+    kubectl get pods --show-labels -l estado=desarrollo, responsable=Juan
+    -Podemos ir por la negacion con el caracter "!" (responsable!=Juan)
+    kubectl get pods --show-labels -l estado=desarrollo, responsable!=Juan
+    -Se puede aplicar condiciones en forma de conjuntos con otros operadores, por ejemplo el "in" 'estado in(desarrollo)'
+    kubectl get pods --show-labels -l 'estado in (desarrollo)'
+    -Tambien se le pueden poner mas de un estado en fomra de listas, por ejemplo estado in(desarrollo,testind)'
+    -Podemos usar los selectores para borrar un conjunto de PODS, por ejemplo.
+    kubectl delete pods -l 'estado=desarrollo
