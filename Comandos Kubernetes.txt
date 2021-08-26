@@ -268,3 +268,23 @@ Son similares a los labels, pero son mas bien descriptivas (al mismo nivel que l
 podemos ver o buscar luego con un describe, tambien podemos usar un jsonpath, por ej.
     kubectl get pod tomcat1 -o jsonpath={.metadata.annotations}
 
+
+-- DEPLOYMENTS --
+
+Despliega uno o un conjunto de PODS.
+
+create: crea un deployment.
+    kubectl create deployment nombre --image=nombre-de-imagen
+    kubectl create deployment apache --image=httpd
+
+get deployment: muestra los deployment del cluster.
+    kubectl get deployment
+
+get rs(replica set): muestra las replicas sets.
+    kubectl get rs
+
+describe: muestra informacion del deployment.
+    kubectl describe tipo-objeto nombre-deployment
+    kubectl describe deploy apache
+
+
