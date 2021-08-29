@@ -287,4 +287,8 @@ describe: muestra informacion del deployment.
     kubectl describe tipo-objeto nombre-deployment
     kubectl describe deploy apache
 
+-o yaml/json: presenta la informacion en cualquiera de esos dos formatos.
+    kubectl get deploy apache -o yaml/json
+
+
 
