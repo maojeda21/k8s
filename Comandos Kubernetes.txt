@@ -290,5 +290,27 @@ describe: muestra informacion del deployment.
 -o yaml/json: presenta la informacion en cualquiera de esos dos formatos.
     kubectl get deploy apache -o yaml/json
 
+    -- ESTRUCTURA DE UN DEPLOY .YAML --
+    apiVersion: apps/v1 # i se Usa apps/v1beta2 para versiones anteriores a 1.9.0
+    kind: Deployment
+    metadata:
+    name: nginx-d
+    spec:
+    selector: #permite seleccionar un conjunto de objetos que cumplan las condiciones.
+        matchLabels:
+        app: nginx
+    recplica: 2 #inidca al controlador que ejecute 2 pods.
+    template: # planilla que define a los containers.
+        metadata:
+        labels:
+            app: nginx
+        spec:
+        containers:
+        - name: nginx
+            image: nginx:1.7.9
+            ports:
+            - containerPort: 80
+
+
 
 
