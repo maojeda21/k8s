@@ -299,7 +299,7 @@ describe: muestra informacion del deployment.
     selector: #permite seleccionar un conjunto de objetos que cumplan las condiciones.
         matchLabels:
         app: nginx
-    recplica: 2 #inidca al controlador que ejecute 2 pods.
+    replica: 2 #inidca al controlador que ejecute 2 pods.
     template: # planilla que define a los containers.
         metadata:
         labels:
