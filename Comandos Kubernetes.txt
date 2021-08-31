@@ -311,6 +311,34 @@ describe: muestra informacion del deployment.
             ports:
             - containerPort: 80
 
+edit: nos permite editar un deploy sin necesitad del fichero yaml.
+    kubectl edit deploy nginx-d 
 
+scale: nos permite escalar un deploy de manera manual
+    kubectl scale deploy nombre-del-deploy --replicas=(numero-de-deploy)
+    kubectl scale deploy nginx-d --replicas=2
+
+Para poder asignar recursos como memoria a un Pod, debemos hacer en la seccion de los contenedores.
+    spec:
+       containers:
+       - name: nginx
+         image: nginx
+         ports:
+         - containerPort: 80
+         resources:
+            limits: --> Indica el consumo maximo de memoria.
+              memory: "200Mi"
+            requests: --> Indica la memoria inicial con la que arrancaría el contenedor.
+              memory: "100M"
+
+Lo mismo aplica para la CPU.
+            resources:
+            limits: --> Indica el consumo maximo de memoria.
+              memory: "200Mi"
+              cpu: "2"
+            requests: --> Indica la memoria inicial con la que arrancaría el contenedor.
+              memory: "100M"
+              cpu: "0.5"
+ 
 
 
