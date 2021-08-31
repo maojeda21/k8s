@@ -340,5 +340,10 @@ Lo mismo aplica para la CPU.
               memory: "100M"
               cpu: "0.5"
  
+ -- SERVICIOS --
 
+Contamos con varios tipos de servicios.
+ 1. ClusterIP: Accesible solo desde dentro del Cluster (IP, NOMBRE, PUERTO)
+ 2. NodePort: Accesible desde fuera del Cluster (IP, NOMBRE, PUERTO, NODEPORT)
+ 3. LoadBalancer: Similar al NodePort, accesible desde fuera del Cluster. Integrado con LoadBalancer de terceros, como ser AWS, GOOGLE CLOUD, AZURE.
 
