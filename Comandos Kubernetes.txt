@@ -347,3 +347,4 @@ Contamos con varios tipos de servicios.
  2. NodePort: Accesible desde fuera del Cluster (IP, NOMBRE, PUERTO, NODEPORT)
  3. LoadBalancer: Similar al NodePort, accesible desde fuera del Cluster. Integrado con LoadBalancer de terceros, como ser AWS, GOOGLE CLOUD, AZURE.
 
+
