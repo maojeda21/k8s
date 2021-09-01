@@ -347,4 +347,44 @@ Contamos con varios tipos de servicios.
  2. NodePort: Accesible desde fuera del Cluster (IP, NOMBRE, PUERTO, NODEPORT)
  3. LoadBalancer: Similar al NodePort, accesible desde fuera del Cluster. Integrado con LoadBalancer de terceros, como ser AWS, GOOGLE CLOUD, AZURE.
 
+svc: comando para ver los servicios disponibles.
+    kubectl get svc
+    -tambien podemos usar el siguiente comando.
+    kubectl describe svc web-svc
+
+expose: comando que crea un servicio para exponer un deploy del cluster al exterior.
+    kubectl expose deployment nombre-deploy --name=nombre-del-servicio --target-port=puerto-por-donde-ecucha-el-contenedor --type=tipo-puerto-externo
+    kubectl expose deployment web-d --name=web-svc --target-port=80 --type=NodePort
+
+ip: nos indica la ip del cluster minikube.
+    minikube ip
+
+-ESTRUCTURA YAML-
+    apiVersion: v1
+    kind: Service
+    metadata:
+    name: web-svc
+    labels:
+        app: web
+    spec:
+    type: NodePort -> tipo de servicio
+    ports:
+    - port: 80 -> Puerto de los contenedores
+        nodePort: 30001 -> Puerto por el cual accederemos a nuestras aplicaciones junto con la IP del cluster.
+        protocol: TCP
+    selector:
+        app: web --> indica o relaciona los pods y deploys con este servicio que se esta creando.
+
+strategy: tenemos 2 tipos de estrategia, RollingUpdate(mas común) y el Recreate, Ambos van dentro de spec, a nivel del "selector" o "replicas" en el archivo YAML.
+    RollingUpdate: va modificando los pods, de manera evolutiva(creando de poco a poco) para que asi tengamos pods que vayan dando servicios, los pods
+    se van sustituyendo con las nuevas veriones.
+    Recreate: directamente borra todos los pods y luego se carga por la nueva version, de esta manera nos quedamos sin servicio hasta que la nueva version este UP.
+        strategy:
+            type: RollingUpdate/Recreate
+
+rollout history: nos muestra el historial del rollout(despliegues) que tiene un determinado deploy.
+    kubectl rollout history deploy nombre-deploy
+    kubectl rollout history deploy nginx-d 
+    -podemos ver el detalle de cada revicion, con el parametro --revision=(numero-de-revision)
+    kubectl rollout history deploy nginx-d --revision=1 
 
