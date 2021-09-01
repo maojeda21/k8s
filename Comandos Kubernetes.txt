@@ -1,21 +1,45 @@
 -- KUBERNETES --
 
-kubectl: herramienta basica para Kubernete, nos permite trabajar con cluster en linux.
+Minikube: es una herramienta que nos permite crear un cluster local, simula un entorno de Kubernetes.
 
 start: arranca un cluster de Kubernetes de manera local.
     minikube start
 
-Virtual Box: por defecto minikube usa docker como generador de maquina virtual, si queremos usar virtual box ejecutamos el siguiente comando.
-    minikube start --driver=virtualbox
-
 status: para ver el estado de nuestro cluster.
     minikube status
 
-dashboard: para abrir un dashboard
+Virtual Box: por defecto minikube usa docker como generador de maquina virtual, si queremos usar virtual box ejecutamos el siguiente comando.
+    minikube start --driver=virtualbox
+
+dashboard: para abrir un dashboard en un navegador web donde podemos ver y monitorar nuestro cluster de Kubernetes.
     minikube dashboard
 
-run: se usa para hacer un deployment o un despliegue, funciona igual que el run de docker, pero cambia las demas sintaxis.
-    kubectl run (nombre del contenedor) --image=(nombre de la imagen)
+logs: permite ver los logs del cluster.
+    minikube logs
+
+kubectl: herramienta basica para Kubernete, similar al comando docker que nos permite ejecutar instruciones en docker.
+
+cluster-info: muestra informacion del cluster.
+    kubectl cluster-info
+
+get: permite visualizar los elementos, servicios y demas componentes del cluster.
+    kubectl get (algun servicio o elemento)
+    kubectl get nodes
+    kubectl get pods
+    kubectl get deployment
+    kubectl get services/svc
+
+-o wide: brinda mayor informacion de los pods, deploy, servicios y nodos.
+    kubectl get pods -o wide
+
+describe: secribe un determinado servicio o pods, similar al inspect de docker.
+    kubectl describe pods (describe todos los pods)
+    kubectl describe pod/(nombre-pod)
+    kubectl describe deployments (describe todos los deployments)
+    kubectl describe deploy (nombre-deploy)
+
+run: se usa para hacer un deployment/despliegue, funciona igual que el run de docker, pero cambia las demas sintaxis.
+    kubectl run nombre-del-contenedor --image=nombre-de-la-imagen
     kubectl run n1 --image=nginx
 
 create: crea un deployment, un deployment es un conjunto de instrucciones para que un contenedor pueda funcionar en un pod
@@ -23,41 +47,17 @@ create: crea un deployment, un deployment es un conjunto de instrucciones para q
     kubectl create deployment hello-world --image=nginx
     kubectl delete -n default deployment nginx-deployment (comando sacado del dashboard)
 
-get: permite visualizar los elementos, servicios y demas componentes del cluster.
-    kubectl get (algun servicio o elemento)
+logs: muestra lo que esta haciendo o ejecutando dentro del pod
+    kubectl logs pod/(nombre-pod)
+    kubectl logs pod/n1
 
-deployments: muestra los deployment del cluster.
-    kubectl get deployment
-
-pods: muestra los pods creados o disponibles.
-    kubectl get pods
-
-service: muestra todos los servicios del cluster.
-    kubectl get services
-
-nodes: muestra informacion de los nodos que tenemos.
-    kubectl get nodes
-    kubectl get nodes -o wide (mayor y mejor informacion)
-
--o wide: brinda mayor informacion de los pods.
-    kubectl get pods -o wide
-
-cluster-info: muestra informacion del cluster.
-    kubectl cluster-info
-    
 proxy: nos permite acceder desde el exterior al interior de la red que usan los pods o contenedores.
     kubectl proxy
     - Luego entrando al navegador mediante la dirccion del localhost con el puerto 8001 veremos las apis necesarias para acceder a los componentes del cluster.
     - Por ej, para entrar al contenedor de nginx mediante el navegador: http://localhost:8001/api/v1/namespaces/default/pods/n1/proxy/
 
-describe: secribe un determinado servicio o pods, similar al inspect de docker.
-    kubectl describe pods
-
-logs: muestra lo que esta haciendo o ejecutando dentro del pod
-    kubectl logs (nombre del pod o contenedor)
-
-exec: ejecuta comando dentro del contenedor, como docker.
-    kubectl exec (nombre del pod) (comando a ejectuar)
+exec: ejecuta comando dentro del contenedor, como en docker.
+    kubectl exec nombre-pod (comando a ejectuar)
     kubectl exec n1 bash/ls
 
 expose: es la manera mas sencilla de crear un servicio (crea un servicio para exponer un deployment).
@@ -66,9 +66,6 @@ expose: es la manera mas sencilla de crear un servicio (crea un servicio para ex
 
 ip: permite ver la configuracion y la IP que se asigno al servidor del cluster.
     minikube ip
-
-logs: permite ver los logs del cluster.
-    minikube logs
 
 ssh: podemos loguearnos dentro de la maquina virtual que hemos creado con minikube.
     minikube ssh
@@ -388,3 +385,10 @@ rollout history: nos muestra el historial del rollout(despliegues) que tiene un 
     -podemos ver el detalle de cada revicion, con el parametro --revision=(numero-de-revision)
     kubectl rollout history deploy nginx-d --revision=1 
 
+status: nos inidca el estado el rollout.
+    kubectl rollout status deploy nombre-del-deploy
+    kubectl rollout status deploy nginx-d 
+
+rollout undo: volvemos atras en un rollout determinado.
+    kubectl rollout undo deploy nombre-del-deploy --to-revision=numero-revision
+    kubectl rollout undo deploy nginx-d --to-revision=2
