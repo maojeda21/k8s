@@ -17,6 +17,15 @@ dashboard: para abrir un dashboard en un navegador web donde podemos ver y monit
 logs: permite ver los logs del cluster.
     minikube logs
 
+ip: permite ver la configuracion y la IP que se asigno al servidor del cluster.
+    minikube ip
+
+ssh: podemos loguearnos dentro de la maquina virtual que hemos creado con minikube.
+    minikube ssh
+
+update-check: permite comprobar si hay una version mas nueva de minikube.
+    minikube update-check
+
 kubectl: herramienta basica para Kubernete, similar al comando docker que nos permite ejecutar instruciones en docker.
 
 cluster-info: muestra informacion del cluster.
@@ -63,15 +72,6 @@ exec: ejecuta comando dentro del contenedor, como en docker.
 expose: es la manera mas sencilla de crear un servicio (crea un servicio para exponer un deployment).
     kubectl expose (nombre del servicio) --type="NodePort" --port 80 (hay varios tipos de "type")
     kubectl expose deployments/nginx1 --type="NodePort" --port 80
-
-ip: permite ver la configuracion y la IP que se asigno al servidor del cluster.
-    minikube ip
-
-ssh: podemos loguearnos dentro de la maquina virtual que hemos creado con minikube.
-    minikube ssh
-
-update-check: permite comprobar si hay una version mas nueva de minikube.
-    minikube update-check
 
 El archivo de configuracion de kubectl se encuentra dentro de la carpeta oculta .kube, el archivo config.
 
