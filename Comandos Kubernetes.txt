@@ -373,7 +373,7 @@ ip: nos indica la ip del cluster minikube.
         app: web --> indica o relaciona los pods y deploys con este servicio que se esta creando.
 
 strategy: tenemos 2 tipos de estrategia, RollingUpdate(mas común) y el Recreate, Ambos van dentro de spec, a nivel del "selector" o "replicas" en el archivo YAML.
-    RollingUpdate: va modificando los pods, de manera evolutiva(creando de poco a poco) para que asi tengamos pods que vayan dando servicios, los pods
+    RollingUpdate: va modificando los pods de manera evolutiva(creando poco a poco) para que asi tengamos pods que vayan dando servicios, los pods
     se van sustituyendo con las nuevas veriones.
     Recreate: directamente borra todos los pods y luego se carga por la nueva version, de esta manera nos quedamos sin servicio hasta que la nueva version este UP.
         strategy:
@@ -392,3 +392,14 @@ status: nos inidca el estado el rollout.
 rollout undo: volvemos atras en un rollout determinado.
     kubectl rollout undo deploy nombre-del-deploy --to-revision=numero-revision
     kubectl rollout undo deploy nginx-d --to-revision=2
+
+env: variables de entorno, van dedentro de las spec como propiedades de los containers.
+
+  template
+    spec:
+      containers:
+      - name: slave
+        image: gcr.io/google_samples/gb-redisslave:v3
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
