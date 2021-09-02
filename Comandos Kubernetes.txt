@@ -403,3 +403,30 @@ env: variables de entorno, van dedentro de las spec como propiedades de los cont
         env:
         - name: GET_HOSTS_FROM
           value: dns
+
+
+-- NAMESPACE --
+
+Es la division logica del cluster de Kubernete para poder dividir los objetos en distintas zonas, serían como particiones virtuales del cluster.
+Minikube crea el namespace default como predeterminado.
+
+get: permite ver los namespaces del cluster.
+    kubectl get namespace nombre-namespace
+
+De manera predeterminada minikube nos muestra informacion(pods/deploy,etc) del namespace "default", para que nos muestre informacion de un determinado namespace
+debemos indicarle con el parametro -n
+    kubectl get pods -n nombre-namespace
+    kubectl get pods -n kube-system
+
+describe: describe un namespace
+    kubectl describe namespace default
+
+create: crea un nuevo namespace.
+    kubectl create namespace nombre-namespace
+    kubectl create namespace testing
+
+delete: permite borrar un namespace.
+    kubectl delete namespace nombre-namespace
+    kubectl delete namespace dev1
+
+    
