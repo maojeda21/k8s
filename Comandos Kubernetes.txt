@@ -442,3 +442,5 @@ Para setear el namespace por defecto podemos usar el siguiente comando.
     kubectl config set-context --current --namespace=nombre-namespace
     kubectl confif set-context --current --namespace=dev1
 
+token create: el token para agregar un nodo worker al cluster duran 24hs, con el siguiente comando podemos volver a generar otro token.
+    kubeadmin token create --print-join-command
