@@ -488,7 +488,7 @@ Las politicas de reciclaje de columentes tambien depende del backend y son:
 2. Recycle: Reutilizar contenido
 3. Delete: Borrar contenido
 
-Estrucutra YAML de un pod para configrar un volumen.
+Estrucutra YAML de un POD para configrar un volumen.
 
 spec:
   containers:
