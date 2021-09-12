@@ -367,6 +367,7 @@ ip: nos indica la ip del cluster minikube.
     type: NodePort -> tipo de servicio
     ports:
     - port: 80 -> Puerto de los contenedores
+        targetPort: 80 -> Puerto por donde se supone que estan escuchando los contenedores.
         nodePort: 30001 -> Puerto por el cual accederemos a nuestras aplicaciones junto con la IP del cluster.
         protocol: TCP
     selector:
@@ -444,3 +445,71 @@ Para setear el namespace por defecto podemos usar el siguiente comando.
 
 token create: el token para agregar un nodo worker al cluster duran 24hs, con el siguiente comando podemos volver a generar otro token.
     kubeadmin token create --print-join-command
+
+
+    -- VOLUMENES --
+Crear espacio en disco para que la informacion de los contenedores se guarde de manera persistente.
+
+Kubernetes almancena la informacion de manera persistente en volumenes, existe varios tipos de volumenes.
+PV: PERSISTENT VOLUME(volumen persistente), es la definicion de una zona de almacenamiento, es como crear un disco logico de un determinado espacio fijo, puede ser variable tambien.
+PVC: PERSISTENT VOLUME CLAIM(reclamacion a un volumen persistente): un determinado objeto "reclama" espacio a un PV(volumen persistente).
+SC: STORAGE CLASS(clase de almacenamiento): es como el nexodo que une los PVC a los PV.
+
+Existen varios Tipos de volumenes:
+GCEPersistentDisk
+AWSElasticBlockStore
+AzureFile
+AzureDisk
+CSI
+FC (Fibre Channel)
+FlexVolume
+Flocker
+NFS
+iSCSI
+RBD (Ceph Block Device)
+CephFS
+Cinder (OpenStack block storage)
+Glusterfs
+VsphereVolume
+Quobyte Volumes
+HostPath (Single node testing only – local storage is not supported in any way and WILL
+NOT WORK in a multi-node cluster)
+Portworx Volumes
+ScaleIO Volume
+
+Kubernetes cuenta con con tres tipos de ACCESOS a los PERSISTENT VOLUME, que depende del backend que vamos a utilizar.
+1. ReadWriteOnce: read-write(lectura y escritura), solo para un nodo (RWO)
+2. ReadOnlyMany: read-only(solo lectura), para muchos nodos (ROX)
+3. ReadWriteMany: read-write(lectura y escritura), para muchos nodos (RWX)
+
+Tipos de reciclaje PERSISTENT VOLUME, es decir, que hace Kubernetes cuando terminamos de trabajar con un determinado volumen.
+Las politicas de reciclaje de columentes tambien depende del backend y son:
+1. Retain: Reclamación manual
+2. Recycle: Reutilizar contenido
+3. Delete: Borrar contenido
+
+Estrucutra YAML de un pod para configrar un volumen.
+
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts: #Indicamos que directorios se van a crear/montar dentro del contenedor.
+      - mountPath: /home #Creamos un directorio "/home" en el contenedor
+        name: home #Indicamos el nombre del directorio creado con el cual haremos referencia al directorio mountPath
+      - mountPath: /git
+        name: git
+        readOnly: true #Indicamos que el directorio "/git" será de "solo lectura".
+      - mountPath: /temp
+        name: temp 
+  volumes: #Mapeamos los volumenes de los contenedores creados anteriormente a espacios en disco del host.
+    - name: home
+      hostPath: #Asociamos a un determinado fichero dentro de nuestro disco del host.
+        path: /home/Kubernetes/ejercicios/volumenes/volumen-pod
+    - name: git
+      gitRepo: #Etiqueta que nos permite conectar con un repositorio en la nube, se clona el directorio de la nube en nuestro volumen del host/contenedor.
+        repository: https://github.com/maojeda21/k8s
+    - name: temp
+      emptyDir: #Directorio temporal, una vez que el contenedor deja de existir, tambien lo hará el volumen.
+        {}
+
