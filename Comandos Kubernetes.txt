@@ -484,12 +484,11 @@ Kubernetes cuenta con con tres tipos de ACCESOS a los PERSISTENT VOLUME, que dep
 
 Tipos de reciclaje PERSISTENT VOLUME, es decir, que hace Kubernetes cuando terminamos de trabajar con un determinado volumen.
 Las politicas de reciclaje de columentes tambien depende del backend y son:
-1. Retain: Reclamación manual
+1. Retain: Reclamación manual (disponibles para que otros pods los puedan reclamar)
 2. Recycle: Reutilizar contenido
 3. Delete: Borrar contenido
 
-Estrucutra YAML de un POD para configrar un volumen.
-
+--Estrucutra YAML de un POD para configurar un volumen --
 spec:
   containers:
   - name: nginx
@@ -512,4 +511,62 @@ spec:
     - name: temp
       emptyDir: #Directorio temporal, una vez que el contenedor deja de existir, tambien lo hará el volumen.
         {}
+
+
+--Estrucutra YAML de un PV(Volumen Persistente)--
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: sistemaficheros #Nombre que le damos para que los demas PV-CLAIM puedan tomar espacio de éste PV.
+  capacity:
+    storage: 50Gi #Espacio a asignar al PV
+  accessModes:
+    - ReadWriteOnce #Indica que a este PV puede ser leido/accedido de a un nodo a la vez.
+  hostPath: #Indica el directorio de la PC/VM HOST
+    path: "/mnt/data"
+
+get pv: muestra informacion de los PV(Volumenes Persistentes) que tenemos en el cluster.
+    kubectl get pv 
+
+
+--Estrucutra YAML de un PVC(Volumen Persistente Reclamados)--
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pv-claim
+spec:
+  storageClassName: sistemaficheros #Nombre del PV del cual tomamos el espacio en disco del HOST.
+  accessModes:
+    - ReadWriteOnce #Debe coincidir con el modo de de acceso del PV.
+  resources:
+    requests:
+      storage: 5Gi #Espacio que este objeto "reclama" al PV.
+
+get pvc: muestra informacion de los PVC(Volumenes Persistentes Reclamados) que tenemos en el cluster.
+    kubectl get pvc
+
+
+--Estrucutra YAML de un pod para reclamar un PVC--
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pv-pod
+spec:
+  volumes:
+    - name: pv-storage
+      persistentVolumeClaim: #Asociamos el volumen del POD a un PVC
+        claimName: pv-claim #El POD se asocia con el PVC de nombre pv-claim -> archivo:"pvclaim.yaml"
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts: #Directorio dentro del contenedor.
+        - mountPath: "/usr/share/nginx/html" #path: dentro del contenedor 
+          name: pv-storage #Indicamos el volumen al que estará asociado el path del contenedor.
 
